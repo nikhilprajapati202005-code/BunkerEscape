@@ -2,8 +2,47 @@ extends CharacterBody3D
 
 const SPEED := 5.0
 const JUMP_VELOCITY := 4.5
+const MOUSE_SENSITIVITY := 0.002
 
 var gravity: float = float(ProjectSettings.get_setting("physics/3d/default_gravity"))
+
+@onready var head: Node3D = $Head
+
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _unhandled_input(event: InputEvent) -> void:
+
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+
+		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+
+		head.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
+
+		head.rotation.x = clamp(
+			head.rotation.x,
+			deg_to_rad(-89),
+			deg_to_rad(89)
+		)
+
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	if event is InputEventMouseButton:
+		if event.pressed:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+
+		head.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
+
+		head.rotation.x = clamp(
+			head.rotation.x,
+			deg_to_rad(-89),
+			deg_to_rad(89)
+		)
 
 
 func _physics_process(delta: float) -> void:
@@ -21,7 +60,10 @@ func _physics_process(delta: float) -> void:
 		"move_backward"
 	)
 
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := (
+		transform.basis *
+		Vector3(input_dir.x, 0, input_dir.y)
+	).normalized()
 
 	if direction:
 		velocity.x = direction.x * SPEED
