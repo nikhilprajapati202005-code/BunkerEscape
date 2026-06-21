@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fe8isghmbykk"]
 
 [ext_resource type="PackedScene" uid="uid://b05mr04dvd7i8" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
+[ext_resource type="PackedScene" uid="uid://bydyyy6igte0a" path="res://Scenes/Interactables/Note.tscn" id="2_xf6vi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fj7yv"]
 size = Vector3(20, 1, 20)
@@ -23,3 +24,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2088572730]
 transform = Transform3D(1, 0, 0, 0, -0.062093735, 0.99807036, 0, -0.99807036, -0.062093735, 0, 8.383909, 0)
+
+[node name="Note" parent="." unique_id=1506820050 instance=ExtResource("2_xf6vi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0247126, -3.176816)

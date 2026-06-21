@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
+	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
@@ -73,3 +73,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+	if Input.is_action_just_pressed("interact"):
+		print("E PRESSED")
+		print("Colliding:", $Head/InteractionRay.is_colliding())
+
+		if $Head/InteractionRay.is_colliding():
+			var collider = $Head/InteractionRay.get_collider()
+			print("Hit:", collider.name)
