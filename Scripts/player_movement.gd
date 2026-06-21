@@ -80,4 +80,6 @@ func _physics_process(delta: float) -> void:
 
 		if $Head/InteractionRay.is_colliding():
 			var collider = $Head/InteractionRay.get_collider()
-			print("Hit:", collider.name)
+
+			if collider.has_method("interact"):
+				collider.interact()
